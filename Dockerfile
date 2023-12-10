@@ -1,10 +1,8 @@
-FROM lambci/lambda:python3.11
+FROM public.ecr.aws/lambda/python:3.11.2023.12.05.16-arm64
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+WORKDIR ${LAMBDA_TASK_ROOT}
 
-WORKDIR .
-
-COPY . .
+COPY . ${LAMBDA_TASK_ROOT}
 
 ENV SPOTIPY_CLIENT_ID="73294f1a3db54ceda0e0fe5874b702ba"
 ENV SPOTIPY_CLIENT_SECRET="328584b4a98f481aa4dc44493a307736"
