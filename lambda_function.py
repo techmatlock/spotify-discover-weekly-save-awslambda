@@ -2,7 +2,7 @@ import spotipy
 from spotipy.exceptions import SpotifyException
 from spotipy.oauth2 import SpotifyOAuth
 
-def handerl():
+def handler():
     main()
 
 def get_playlist_id(playlists, name):
@@ -49,3 +49,5 @@ def main():
         sp.user_playlist_add_tracks(user=USERNAME, playlist_id=export_playlist_id, tracks=new_uri_list)
     except SpotifyException as e:
         print(f"An error occurred: {e}")
+
+handler()
