@@ -1,3 +1,7 @@
 venv
 .cache*
 __pycache__
+package
+my_deployment_package.zip
+spotify-package.zip
+.DS*

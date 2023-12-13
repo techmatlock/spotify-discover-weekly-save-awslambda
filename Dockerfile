@@ -1,17 +1,15 @@
-FROM public.ecr.aws/lambda/python:3.11.2023.12.05.16-arm64
+FROM public.ecr.aws/lambda/python:3.11
 
-WORKDIR ${LAMBDA_TASK_ROOT}
+# Copy requirements.txt
+COPY requirements.txt ${LAMBDA_TASK_ROOT}
 
-COPY . ${LAMBDA_TASK_ROOT}
+# Install the specified packages
+RUN pip install -r requirements.txt
 
-ENV SPOTIPY_CLIENT_ID="73294f1a3db54ceda0e0fe5874b702ba"
-ENV SPOTIPY_CLIENT_SECRET="328584b4a98f481aa4dc44493a307736"
-ENV SPOTIPY_REDIRECT_URI="http://localhost:8080"
-ENV USERNAME="12139181856"
-ENV SCOPE="playlist-read-private playlist-modify-private playlist-modify-public"
-ENV CACHE_PATH=".cache-mark"
+# Copy function code
+COPY lambda_function.py ${LAMBDA_TASK_ROOT}
 
-RUN pip3 install -r requirements.txt
+# Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
+CMD [ "lambda_function.lambda_handler" ]
 
-CMD ["lambda_function.handler"]
 
