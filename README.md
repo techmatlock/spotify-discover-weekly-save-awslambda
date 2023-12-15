@@ -1,7 +1,7 @@
 # Spotify Discover Weekly Save
 
 ## Description
-This projects aims to address the problem of not having time in the week to listen to your weekly refresh of songs in Discover Weekly.  This script will fetch all songs each week and save to a new playlist in your Spotify account.
+This projects aims to address the problem of not having time in the week to listen to your weekly refresh of songs in Discover Weekly.  This script will fetch all songs each week and save to a new playlist in your Spotify account.  Includes AWS Lambda and EventBridge Setup.  
 
 ## Demo
 
@@ -24,21 +24,30 @@ git clone https://github.com/techmatlock/spotify-discover-weekly-save-headless.g
 5. Create a new app, go to Settings, and save the CLIENT_ID, CLIENT_SECRET, and REDIRECT_URI.
 <img width="1660" alt="Screenshot 2023-11-26 at 7 56 12 PM" src="https://github.com/techmatlock/spotify-discover-weekly-save/assets/2618095/48814c11-a676-42f3-a229-f5726c533173">
 
-6. Export your environment variables.
+6. Go to your Spotify account and add a new playlist called "Discover Weekly Exports.
+7. You only have to do this ONCE.  If you don't have a ".cache*" file already in your project directory, you must first generate one. (This is a feature missing from Spotify OAuth and must generate token on machine with a browser.)
+
+8. Add this line below the code below ```sp_oauth.get_access_token()```
+```sp_oauth = SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET, redirect_uri=SPOTIPY_REDIRECT_URI, username=USERNAME, scope=SCOPE, cache_path=CACHE_PATH)``` 
+9. Once you have your .cache-username token in your project directory, you can remove this line of code ```sp_oauth.get_access_token()```
+10. In the project directory, execute the following commands to prepare the Lambda function
 ```
-export SPOTIPY_CLIENT_ID=your-client-id
-export SPOTIPY_CLIENT_SECRET=your-secret-here
-export SPOTIPY_REDIRECT_URI=http://localhost:8080
-export USERNAME=your-username-id
+mkdir package
+pip3 install --target ./package spotipy
+cd ..
+cd package
+zip -r ../spotipy-package.zip .
+cd ..
+clear
+python3 -m venv venv
+source venv/bin/activate
+pip3 install spotipy
+deactivate
+cd venv/lib/python3.12/site-packages
+zip -r ../../../../my_deployment_package.zip .
+cd ../../../
+zip my_deployment_package.zip lambda_function.py
 ```
-7. Go to your Spotify account and add a new playlist called "Discover Weekly Exports.
-8. You only have to do this ONCE.  If you don't have a ".cache*" file already in your project directory, you must first generate one. (This is a feature missing from Spotify OAuth and must generate token on machine with a browser.)
-Add the Python code below after line 30 in ```main.py```
-```
-sp_oauth.get_access_token()
-```
-9. Go to your server, clone this repository and copy the newly-created ".cache*" file on your local machine to the server where you'll be running this script in headless mode.
-10. On your server, run the script: ```python3 main.py```
 
 ## Usage
 * In order to benefit from this script, you need to setup crontab (Linux/Mac) or Task Scheduler (Windows) to run the script every week.
