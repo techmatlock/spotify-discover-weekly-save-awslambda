@@ -27,7 +27,7 @@ git clone https://github.com/techmatlock/spotify-discover-weekly-save-headless.g
 6. Go to your Spotify account and add a new playlist called "Discover Weekly Exports.
 7. You only have to do this ONCE.  If you don't have a ".cache*" file already in your project directory, you must first generate one. (This is a feature missing from Spotify OAuth and must generate token on machine with a browser.)
 
-8. Add this line below the code below ```sp_oauth.get_access_token()```
+8. Add this line below the code below ```sp_oauth.get_access_token()```\
 ```sp_oauth = SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET, redirect_uri=SPOTIPY_REDIRECT_URI, username=USERNAME, scope=SCOPE, cache_path=CACHE_PATH)``` 
 9. Once you have your .cache-username token in your project directory, you can remove this line of code ```sp_oauth.get_access_token()```
 10. In the project directory, execute the following commands to prepare the Lambda function
