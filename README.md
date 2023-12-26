@@ -52,6 +52,7 @@ zip my_deployment_package.zip lambda_function.py
 12. Make sure to set your environment variables in Lambda as seen in the screenshot below.
 ![Screenshot 2023-12-26 at 1 14 51 PM](https://github.com/techmatlock/spotify-discover-weekly-save-awslambda/assets/2618095/382e0202-724e-46dd-9e55-da9c5da0e2d9)
 13. In AWS Lambda, make sure to change the Handler under Runtime Settings to be lambda_function.lambda_handler
+![Screenshot 2023-12-26 at 1 19 46 PM](https://github.com/techmatlock/spotify-discover-weekly-save-awslambda/assets/2618095/a0dadeda-a270-439b-b3ae-74eb4115f48f)
 
 ## Usage
 * In order to benefit from this script, you need to setup crontab (Linux/Mac) or Task Scheduler (Windows) to run the script every week.
