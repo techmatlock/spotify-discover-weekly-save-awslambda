@@ -48,6 +48,7 @@ zip -r ../../../../my_deployment_package.zip .
 cd ../../../
 zip my_deployment_package.zip lambda_function.py
 ```
+![Screenshot 2023-12-26 at 1 14 51 PM](https://github.com/techmatlock/spotify-discover-weekly-save-awslambda/assets/2618095/382e0202-724e-46dd-9e55-da9c5da0e2d9)
 
 ## Usage
 * In order to benefit from this script, you need to setup crontab (Linux/Mac) or Task Scheduler (Windows) to run the script every week.
