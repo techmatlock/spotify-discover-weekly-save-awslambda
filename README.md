@@ -54,9 +54,8 @@ zip my_deployment_package.zip lambda_function.py
 13. In AWS Lambda, make sure to change the Handler under Runtime Settings to be lambda_function.lambda_handler
 ![Screenshot 2023-12-26 at 1 19 46 PM](https://github.com/techmatlock/spotify-discover-weekly-save-awslambda/assets/2618095/a0dadeda-a270-439b-b3ae-74eb4115f48f)
 
-## Usage
-* In order to benefit from this script, you need to setup crontab (Linux/Mac) or Task Scheduler (Windows) to run the script every week.
-* The reason we have to use song URI's instead of song names in the script is because the spotipy library doesn't allow you to pass song names as a parameter to the user_playlist_add_tracks method. 
+## Challenges/Obstacles Encountered
+* I ran into an issue where I needed to get an access token to authenticate with via OAuth, but the Spotify API doesn't have support to get an OAuth token on a headless system.  You have to run the code with ```sp_oauth.get_access_token()``` which will generate an .cache-username file in your project directory.  Once you have that file, you can specify the cache file in the cache_path parameter ```sp_oauth = SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET, redirect_uri=SPOTIPY_REDIRECT_URI, username=USERNAME, scope=SCOPE, cache_path=CACHE_PATH)```.  We also call the refresh_token method to re-use that same .cache* file we generated earlier to use the same token after it expires every 60 minutes.
 
 ## Errors
 This error means the song's already exist in the exported playlist and can be ignored:
